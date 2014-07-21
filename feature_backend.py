@@ -64,12 +64,6 @@ def apply_tree(stateful, user, action, task_id):
     # probably should make this take a number instead of implied 1
     if action not in ['vote', 'unvote', 'star', 'unstar']:
         raise Exception('bad apply_tree call')
-    if action == 'vote' and task_id in user.votes:
-        return False
-    if action == 'unvote' and task_id not in user.votes:
-        return False
-    if action == 'unstar' and stateful.tasks[task_id].stars == 0:
-        return False
     if action == 'vote' and stateful.tasks[task_id].commit:
         return False
     walk = set()
@@ -77,10 +71,16 @@ def apply_tree(stateful, user, action, task_id):
     while todo:
         i = todo.pop()
         walk.add(i)
-        children = stateful.tasks[i].children
         parents = stateful.tasks[i].parents
-        todo.extend(list((children | parents) - walk))
-        walk.update(children | parents)
+        todo.extend(list(parents - walk))
+        walk.update(parents)
+    todo = [task_id]
+    while todo:
+        i = todo.pop()
+        walk.add(i)
+        children = stateful.tasks[i].children
+        todo.extend(list(children - walk))
+        walk.update(children)
     if action == 'vote':
         serial = user.serial
         for t in walk:
