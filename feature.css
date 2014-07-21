@@ -1,0 +1,97 @@
+body {
+  width: 90%;
+  line-height: 1.5em;
+  font-size: 1.2em;
+  background: #FFF;
+}
+
+div.title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  margin: 1em;
+  padding: 0em;
+}
+
+div.footer {
+  text-align: center;
+  padding-top: 7em;
+  padding-bottom: 1em;
+}
+
+/* nice geometric curve 
+   f(n) = max - max * ((N-n)/max) ^ (N nroot max) */
+div.indent0  span.indent {padding-left: 0%;}
+div.indent1  span.indent {padding-left: 7.2%;}
+div.indent2  span.indent {padding-left: 14.1%;}
+div.indent3  span.indent {padding-left: 20.5%;}
+div.indent4  span.indent {padding-left: 26.5%;}
+div.indent5  span.indent {padding-left: 32.1%;}
+div.indent6  span.indent {padding-left: 37.1%;}
+div.indent7  span.indent {padding-left: 41.6%;}
+div.indent8  span.indent {padding-left: 45.4%;}
+div.indent9  span.indent {padding-left: 48.3%;}
+div.indent10 span.indent {padding-left: 50%;}
+
+div.indent0  div.desc {margin-left: 0%;}
+div.indent1  div.desc {margin-left: 7.2%;}
+div.indent2  div.desc {margin-left: 14.1%;}
+div.indent3  div.desc {margin-left: 20.5%;}
+div.indent4  div.desc {margin-left: 26.5%;}
+div.indent5  div.desc {margin-left: 32.1%;}
+div.indent6  div.desc {margin-left: 37.1%;}
+div.indent7  div.desc {margin-left: 41.6%;}
+div.indent8  div.desc {margin-left: 45.4%;}
+div.indent9  div.desc {margin-left: 48.3%;}
+div.indent10 div.desc {margin-left: 50%;}
+
+span {margin-right: 1em;}
+
+span.stars {color: orange;}
+
+span.votes {font-style: italic;}
+
+span.task_id {font-weight: bold;}
+
+span.title {}
+
+span.misc {}
+
+a.commit {}
+
+div.desc {
+  display: none;
+  padding: 0.5em 1em 1em 1em;
+  margin-top: 0em;
+  border-top-left-radius:0;
+  border-top-right-radius:0;
+  border-bottom-left-radius:1em;
+  border-bottom-right-radius:1em;
+  position: absolute;
+  background: #DDF;
+  z-index: 2;
+  left: 10em;
+}
+
+div.div_row {
+  width: 100%;
+  margin-left: 3em;
+}
+
+div.open {}
+
+div.closed {color: #444;}
+
+div.closed span.task_id {text-decoration: line-through;}
+
+div.active {text-shadow: 1px 1px 2px #44F;}
+
+div.div_row:hover {background: #DDF;}
+
+div.div_row:hover div.desc {
+  display: block;
+  text-shadow: none;
+  box-shadow: 0em 0em 3em 2em #FFF, -20em -20em 3em 20em #FFF;
+  clip:rect(0em, 200em, 50em, -50em);
+}
+
