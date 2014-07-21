@@ -3,7 +3,7 @@ Featuritis Docs
 
 Featuritis is a tool to let developers define hierarchies of tasks and to let users prioritize these tasks.  People send their votes to an IRC bot and these are tabulated into a static HTML page.
 
-Tasks should be small, corresponding to what will be a single commit.  (When 'commit link' field of a task is filled the task is considered done.)  Tasks have a title, parents, children, votes and a brief description.
+Tasks should be small, corresponding to what will be a single commit.  (When the 'commit link' field of a task is filled the task is considered done.)  Tasks have a title, parents, children, votes and a brief description.
 
 Featuritis uses plurality voting and people can vote once for as many different tasks as they want. To best represent your interests, only vote for the **smallest components** you are interested in.  Your vote is automatically propagated up and down the tree, so you don't have to worry about micromanaging votes for pre-requisite subtasks.
 

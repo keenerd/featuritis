@@ -817,8 +817,10 @@ def render_html(path, stateful):
     fp.write('<style type="feature.css" media="all"> @import "main.css"; </style>\n')
     fp.write('<link href="custom.css" rel="stylesheet" type="text/css">\n')
     fp.write('<style type="custom.css" media="all"> @import "main.css"; </style>\n')
-    fp.write('<link rel="icon" type="image/png" href="favicon.png">')
+    fp.write('<link rel="icon" type="image/png" href="favicon.png">\n')
+    fp.write('<link href="rss.xml" rel="alternate" type="application/rss+xml" title="Sitewide RSS Feed">\n')
     fp.write('</head><body>\n')
+    fp.write('<div class="rss_link"><a href="rss.xml"><img src="rss16.png" alt="rss link">RSS</a></div>\n')
     fp.write('<div class="title">%s</div>\n' % stateful.conf.project_name)
     if stateful.conf.html_header:
         fp.write('<div class="header">\n')

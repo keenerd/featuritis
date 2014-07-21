@@ -5,6 +5,20 @@ body {
   background: #FFF;
 }
 
+div.rss_link {
+  text-decoration: none;
+  border: none;
+  color: #000000;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
+div.rss_link a:link    {text-decoration: none; color: #000000;}
+div.rss_link a:visited {text-decoration: none; color: #000000;}
+div.rss_link a:hover   {text-decoration: none; color: #6060C0;}
+div.rss_link a:active  {text-decoration: none; color: #000000;}
+
 div.title {
   text-align: center;
   font-weight: bold;
