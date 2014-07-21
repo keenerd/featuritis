@@ -431,8 +431,8 @@ def admin_fn(stateful, user, message):
         stateful.notices.append((user.active, help_text))
         return False
     command = message[0]
-    nick1 = message[1]
-    nick2 = message[-1]
+    nick1 = message[1].strip()
+    nick2 = message[-1].strip()
     u = find_nick(nick1, stateful.admins)
     if u is None:
         u = find_nick(nick1, stateful.users)
@@ -723,6 +723,8 @@ def parse_user(stateful, user, message):
 def pub_action(stateful, c, e):
     message = ' '.join(e.arguments)
     name,_,mask = e.source.partition('!')
+    name = name.strip()
+    mask = mask.strip()
     # todo, add the handler for admin pub things
     # and maybe a general status thing
     user = find_user(e.source, stateful.admins + stateful.users)
@@ -738,6 +740,8 @@ def pub_action(stateful, c, e):
 def priv_action(stateful, c, e):
     message = ' '.join(e.arguments)
     name,_,mask = e.source.partition('!')
+    name = name.strip()
+    mask = mask.strip()
     admin = find_user(e.source, stateful.admins)
     updated = False
     if admin is not None:

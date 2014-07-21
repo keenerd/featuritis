@@ -118,6 +118,8 @@ class TestBot(irc.bot.SingleServerIRCBot):
 
     def on_userhost(self, c, e):
         user,_,host = e.arguments[0].partition('=+')
+        user = user.strip()
+        host = host.strip()
         stateful.userhosts[user] = host
 
     def on_nicknameinuse(self, c, e):
@@ -175,6 +177,7 @@ class TestBot(irc.bot.SingleServerIRCBot):
                 tstart = time.time()
                 reload_log(conf.logfile)
                 tstop = time.time()
+                stateful.bot = bot
                 fb.recount_everything(stateful)
                 fb.render_html(conf.html_path, stateful)
                 fb.render_rss(conf.rss_path, stateful)
