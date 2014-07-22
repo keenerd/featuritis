@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os, re, time
+import os, re, time, datetime
 from copy import copy, deepcopy
 from collections import defaultdict
 
@@ -854,9 +854,8 @@ def render_rss(path, stateful):
         line = line.strip()
         m = time_re.match(line)
         if m:
-            c_date, c_time = m.group(1, 2)
-            year,month,day = c_date.split('-')
-            current_time = ' '.join((day, months[int(month,10)], year, c_time, 'GMT'))
+            t2 = datetime.datetime.strptime(line, '# %Y-%m-%d %H:%M')
+            current_time = t2.strftime('%a, %d %b %Y %H:%M:%S GMT')
             continue
         m = new_re.match(line)
         if m:
