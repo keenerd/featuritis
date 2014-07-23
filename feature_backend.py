@@ -454,6 +454,7 @@ def admin_fn(stateful, user, message):
             stateful.notices.append((user.active, '%s already registered' % nick1))
             return False
         new_user(stateful, nick1, nick2)  # nick2 is the userhost
+        stateful.userhosts[nick1] = nick2
         return False
     if command == 'internal-remove':
         for u2 in stateful.admins + stateful.users:
