@@ -450,10 +450,10 @@ def admin_fn(stateful, user, message):
             stateful.notices.append((user.active, 'Current host: ' + stateful.userhosts[nick1]))
         return False
     if command == 'internal-register':
+        if u is None:
+            new_user(stateful, nick1, nick2)  # nick2 is the userhost
         if u is not None:
-            stateful.notices.append((user.active, '%s already registered' % nick1))
-            return False
-        new_user(stateful, nick1, nick2)  # nick2 is the userhost
+            u.mask.add(nick2)
         stateful.userhosts[nick1] = nick2
         return False
     if command == 'internal-remove':
@@ -490,11 +490,12 @@ def admin_fn(stateful, user, message):
     host1 = stateful.userhosts[nick1]
     host2 = stateful.userhosts[nick2]
     if command == 'register':
+        if u is None:
+            new_user(stateful, nick1, host1)
+            stateful.notices.append((user.active, '%s registered' % nick1))
         if u is not None:
-            stateful.notices.append((user.active, '%s already registered' % nick1))
-            return False
-        new_user(stateful, nick1, host1)
-        stateful.notices.append((user.active, '%s registered' % nick1))
+            u.mask.add(host1)
+            stateful.notices.append((user.active, '%s registration updated' % nick1))
         # manual logging
         meta_cmd = 'admin internal-register %s %s' % (nick1, host1)
         log_raw(stateful, user.source, meta_cmd)
