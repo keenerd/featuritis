@@ -339,11 +339,13 @@ def task_fn(stateful, user, message):
         stateful.tasks[task_id].parents.add(task_id2)
         stateful.tasks[task_id2].children.add(task_id)
         recount_everything(stateful)
+        task_fn(stateful, user, '%s show' % task_id)
         return True
     if command == 'parentof' or command == 'p':
         stateful.tasks[task_id].children.add(task_id2)
         stateful.tasks[task_id2].parents.add(task_id)
         recount_everything(stateful)
+        task_fn(stateful, user, '%s show' % task_id)
         return True
     if command == 'remove':
         # probably could use a did-something check
@@ -441,6 +443,8 @@ def admin_fn(stateful, user, message):
             status_message = 'Known nicks: ' + ', '.join(u.nick)
             stateful.notices.append((user.active, status_message))
             status_message = 'Known hosts: ' + ', '.join(u.mask)
+            stateful.notices.append((user.active, status_message))
+            status_message = 'Votes: ' + ', '.join(u.votes) 
             stateful.notices.append((user.active, status_message))
         else:
             stateful.notices.append((user.active, 'error: unregistered nick'))
