@@ -82,7 +82,7 @@ div.desc {
   border-bottom-left-radius:1em;
   border-bottom-right-radius:1em;
   position: absolute;
-  background: #DDF;
+  background: inherit;
   z-index: 2;
   left: 10em;
 }
@@ -98,9 +98,11 @@ div.closed {color: #444;}
 
 div.closed span.task_id {text-decoration: line-through;}
 
-div.active {text-shadow: 1px 1px 2px #44F;}
+div.active {background: #FF8;}
 
 div.div_row:hover {background: #DDF;}
+
+div.active:hover {background: #FF8;}
 
 div.div_row:hover div.desc {
   display: block;
