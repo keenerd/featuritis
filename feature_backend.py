@@ -543,7 +543,7 @@ def admin_help_fn(stateful, user, message):
     generic_user = 'user commands: ' + ' '.join(w for w in user_commands if len(w) > 1)
     if topic == 'h' or topic == 'help' or not topic:
         stateful.notices.append((user.active, generic_admin))
-        stateful.notices.append((user.active, generic_user))
+        #stateful.notices.append((user.active, generic_user))
         return False
     if topic in admin_commands:
         admin_commands[topic](stateful, user, 'help')
@@ -552,7 +552,7 @@ def admin_help_fn(stateful, user, message):
         user_commands[topic](stateful, user, 'help')
         return False
     stateful.notices.append((user.active, generic_admin))
-    stateful.notices.append((user.active, generic_user))
+    #stateful.notices.append((user.active, generic_user))
     return False
 
 admin_commands = {
@@ -849,7 +849,7 @@ def render_rss(path, stateful):
         return
     time_pattern = '^# ([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2})$'
     new_pattern = '^.*?\tnew (T#[0-9]*?) (.*)$'
-    close_pattern = '^.*?\tclose (T#[0-9]*?) (.*$)'
+    close_pattern = '^.*?\tfinished (T#[0-9]*?) (.*$)'
     time_re = re.compile(time_pattern)
     new_re = re.compile(new_pattern)
     close_re = re.compile(close_pattern)
@@ -892,7 +892,7 @@ def render_rss(path, stateful):
         if action == 'new':
             fp.write('<title>New: %s - %s</title>' % \
             (t_id, xml_escape(info)))
-        if action == 'closed':
+        if action == 'close':
             fp.write('<title>Completed: %s - %s</title>' % \
             (t_id, xml_escape(stateful.tasks[t_id].title)))
             fp.write('<link>%s</link>' % info)
