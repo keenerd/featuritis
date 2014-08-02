@@ -227,7 +227,7 @@ def new_fn(stateful, user, message):
     return False
 
 def finished_fn(stateful, user, message):
-    help_text = 'finished T#NNN http://url.of.commit'
+    help_text = 'finished T#NNN http://url.of.commit (blank URL to undo)'
     if message == 'help' or message == 'h' or not message:
         stateful.notices.append((user.active, help_text))
         return False
@@ -236,10 +236,15 @@ def finished_fn(stateful, user, message):
         status_message = 'error: task %s not found' % task_id
         stateful.notices.append((user.active, status_message))
         return False
+    url = url.strip()
+    if url == "":
+        url = None
+    new_commit = not bool(stateful.tasks[task_id].commit)
     stateful.tasks[task_id].commit = url
     status_message = '%s finished %s: %s' % (user.active, task_id, stateful.tasks[task_id].title)
     stateful.notices.append((user.active, status_message))
-    stateful.notices.append((stateful.conf.main_channel, status_message))
+    if new_commit:
+        stateful.notices.append((stateful.conf.main_channel, status_message))
     recount_everything(stateful)
     return True
 
@@ -873,8 +878,20 @@ def render_rss(path, stateful):
             task_id, url = m.group(1, 2)
             rss_items.append((current_time, 'close', task_id, url))
             continue
-    rss_items = rss_items[-20:]
+    # if something was finished multiple times
+    # the early ones were probably mistakes, pull from RSS
     rss_items.reverse()
+    rss_items2 = []
+    seen = set()
+    for c_time, action, t_id, info in rss_items:
+        if action != 'close':
+            rss_items2.append((c_time, action, t_id, info))
+            continue
+        if t_id in seen:
+            continue
+        seen.add(t_id)
+        rss_items2.append((c_time, action, t_id, info))
+    rss_items = rss_items2[:20]
     fp = open(path, 'w')
     fp.write('<?xml version="1.0" encoding="utf-8"?>\n')
     fp.write('<rss version="2.0">')
