@@ -98,6 +98,8 @@ div.closed {color: #444;}
 
 div.closed span.task_id {text-decoration: line-through;}
 
+div.closed span.votes {visibility: hidden;}
+
 div.active {background: #FF8;}
 
 div.div_row:hover {background: #DDF;}

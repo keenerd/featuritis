@@ -7,6 +7,32 @@ Tasks should be small, corresponding to what will be a single commit.  (When the
 
 Featuritis uses plurality voting and people can vote once for as many different tasks as they want. To best represent your interests, only vote for the **smallest components** you are interested in.  Your vote is automatically propagated up and down the tree, so you don't have to worry about micromanaging votes for pre-requisite subtasks.
 
+If you want to see an example of it in action, here is an [IndieGoGo for RTL-SDR](https://www.indiegogo.com/projects/a-month-of-rtl-sdr/x/8229940) and the paired [Featuritis status page](http://igg.kmkeen.com/).
+
+FOSS Funding
+============
+
+Most FOSS funding models are very hard to get behind.  Almost every model has at least three of the following issues:
+
+* **Require effective marketing.**  If people don't know you are accepting money, they won't donate any.
+* **A slow trickle of income.**  It might be a long time until the generous see results from their donation.
+* **Jarring incentives.**  Most fundraisers try to emulate the incentives used by (admittedly successful) proprietary video game developers.
+* **Request relevance.**  Users routinely ask for features without any idea of how they fit into the bigger project.
+* **Impossible to please.**  Emotional strings.  Did you really complete that feature sufficiently to make the donors happy?
+
+Let's look at some of the various tools out there.
+
+* Gittip.  Pros: no strings, no requests.  You get freedom.  Cons: it is a trickle.  The median user gets around $20/week.  At one hour of work per week you will never have a chance to really get into the flow.  Promotion is hard due to the slow and disconnected nature.
+
+* Feature funding.  Bountysource and funding.openinitiative.com.  Pros: you know what the users want.  Cons: Hard to promote.  Donations are broken up across many features, diffusing everything.  You'll get a lump (eventually) but it might be a while and you have to use it on that one feature.  If the features are user-generated, there may be some disconnect.  If there is scope creep or you poorly estimate how hard something is, then no one is happy with the results.
+
+* Crowd funding.  Kickstarter and IndieGoGo.  This is one of my favorites.  Marketing is important, but singular events easier to inform people of.  You get a lump sum, which means you can allocate a solid lump of time.  Downside is the incentives.  The two most common incentives are *secrets* and *vanity*.  Secrets would be any sort of private mailing list, private repository or early access.  These are not at all in the spirit of FOSS.  Why should acting proprietary be a reward?  Vanity is a little more subtle.  Unless a dev is a BDFL, they typically get no recognition.  Until they screw up.  Then their name is everywhere.  The developers are generally low-key people and so are most of the users.  The majority of donations to most projects are anonymous, for example.  People generally don't want their name on things, so it is not a good perk.
+
+Why Featuritis
+==============
+
+Featuritis is designed to combine the one nice part about feature funding (knowledge of what people want) with all the good parts of crowd funding.  People love to request features, so after donating they can vote on which features are most important to them.  They can vote for any number of features and can change their votes at any time.  The developers can arrange these goals into hierarchies of requirements, so donors can better understand the magnitude of a task and where development time is being spent.  Obviously a developer should spend most of their time working on the most popular features, but this is not a hard requirement as with feature-funding.
+
 User commands and syntax
 ========================
 
@@ -58,7 +84,38 @@ Simple case-insensitive string match of titles and descriptions.
 Admin commands and syntax
 =========================
 
-A bit more complicated and messy.  Dig the source.
+### `new`
+
+Provide the title of a task, it will create an empty task and return the task id.
+
+### `doing`
+
+Set yourself on that task's activity list.  Can also set other devs.  You can only do one task at a time.
+
+### `finished`
+
+Mark a task as completed.  Requires a commit URL.
+
+### `star`
+
+Increase or decrease the number of stars on a task.  This supersedes the vote count and is meant for Very Important Tasks.
+
+### `task`
+
+Edit the attributes of a task.  Subcommands include
+
+* `show` to report info
+* `childof / c` to to add a requirement link
+* `parentof / p` to add a dependency link
+* `remove` to clear a link
+
+### `comment`
+
+Edit the description of a task.  Comments are a list of strings, each element gets its own line on the summary page.  Subcommands include list editing like `append` `insert` `remove` and `swap`.
+
+### `admin`
+
+A bit more complicated and messy.  Mostly used for registering voters.  Dig the source.
 
 Developer notes
 ===============
