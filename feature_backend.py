@@ -375,7 +375,7 @@ def doing_fn(stateful, user, message):
     task_id = message[0]
     if task_id.lower() == 'none':
         task_id = None
-    if task_id not in stateful.tasks and task_id is not None:
+    if task_id is not None and task_id not in stateful.tasks:
         status_message = 'error: task %s not found' % task_id
         stateful.notices.append((user.active, status_message))
         return False
@@ -388,7 +388,7 @@ def doing_fn(stateful, user, message):
         return False
     for u in stateful.admins:
         if target in u.nick:
-            if stateful.tasks[task_id].commit:
+            if task_id is not None and stateful.tasks[task_id].commit:
                 stateful.notices.append((user.active, 'warning: %s already finished' % task_id))
             u.doing = task_id
             status_message = 'set %s to %s' % (target, str(task_id))
